@@ -1,14 +1,14 @@
-<h2>Registro de Vendas</h2>
-<form method="post">
-    <input type="text" name="cliente" placeholder="Nome do Cliente" required>
-    <input type="text" name="produto" placeholder="Produto" required>
-    <input type="number" step="0.01" name="total" placeholder="Valor Total" required>
-    <button type="submit">Finalizar Venda</button>
+<h2>Registrar Venda</h2>
+<form method="POST">
+    <input name="cliente" placeholder="Cliente" required>
+    <input name="produto" placeholder="Produto" required>
+    <input name="total" placeholder="Valor Total" required>
+    <button type="submit">Vender</button>
 </form>
-<table border="1" style="margin-top: 20px; width: 100%;">
-    <tr><th>ID</th><th>Cliente</th><th>Produto</th><th>Total</th></tr>
+<table border="1">
+    <tr><th>Cliente</th><th>Produto</th><th>Total</th></tr>
     {% for v in vendas %}
-    <tr><td>{{ v.id }}</td><td>{{ v.cliente }}</td><td>{{ v.produto }}</td><td>R$ {{ v.total }}</td></tr>
+    <tr><td>{{v.cliente}}</td><td>{{v.produto}}</td><td>R$ {{v.total}}</td></tr>
     {% endfor %}
 </table>
-<br><a href="/">Voltar ao Menu</a>
+<br><a href="/">Voltar</a>
