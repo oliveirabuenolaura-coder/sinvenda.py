@@ -1,106 +1,73 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
-import os
 
 app = Flask(__name__)
-# A secret_key é obrigatória para usar o 'session' (o que mantém você logado)
-app.secret_key = 'chave_secreta_para_vendas'
+app.secret_key = '123456' # Necessário para o login funcionar
 
-# --- FUNÇÕES DE BANCO DE DADOS ---
-def conectar_bd():
-    # Conecta ao arquivo sqlite (cria se não existir)
+def conectar():
     conn = sqlite3.connect('banco.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-def iniciar_banco():
-    # Cria as tabelas necessárias se elas ainda não existirem
-    with conectar_bd() as db:
-        db.execute('''CREATE TABLE IF NOT EXISTS clientes 
-                      (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, email TEXT)''')
-        db.execute('''CREATE TABLE IF NOT EXISTS produtos 
-                      (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, preco REAL)''')
-        db.execute('''CREATE TABLE IF NOT EXISTS vendas 
-                      (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT, produto TEXT, total REAL)''')
-        db.commit()
-
-# Rodar a criação das tabelas ao abrir o programa
-iniciar_banco()
-
-# --- ROTAS DO SISTEMA ---
+# Cria o banco e as tabelas se não existirem
+with conectar() as db:
+    db.execute('CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY, nome TEXT, email TEXT)')
+    db.execute('CREATE TABLE IF NOT EXISTS produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL)')
+    db.execute('CREATE TABLE IF NOT EXISTS vendas (id INTEGER PRIMARY KEY, cliente TEXT, produto TEXT, total REAL)')
 
 @app.route('/')
 def index():
-    # Verifica se o usuário está logado na sessão
-    if 'usuario' not in session:
+    if 'logado' not in session:
         return redirect(url_for('login'))
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    erro = None
     if request.method == 'POST':
-        usuario = request.form.get('usuario')
+        user = request.form.get('usuario')
         senha = request.form.get('senha')
-
-        # LOGIN: admin / SENHA: 123
-        if usuario == 'admin' and senha == '123':
-            session['usuario'] = usuario
+        if user == 'admin' and senha == '123':
+            session['logado'] = True
             return redirect(url_for('index'))
         else:
-            erro = "Usuário ou senha inválidos!"
-            
-    return render_template('login.html', erro=erro)
+            return "Login incorreto! <a href='/login'>Tentar de novo</a>"
+    return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    session.pop('usuario', None)
+    session.pop('logado', None)
     return redirect(url_for('login'))
 
 @app.route('/clientes', methods=['GET', 'POST'])
 def clientes():
-    if 'usuario' not in session: return redirect(url_for('login'))
-    
-    db = conectar_bd()
+    if 'logado' not in session: return redirect(url_for('login'))
+    db = conectar()
     if request.method == 'POST':
-        nome = request.form.get('nome')
-        email = request.form.get('email')
-        db.execute('INSERT INTO clientes (nome, email) VALUES (?, ?)', (nome, email))
+        db.execute('INSERT INTO clientes (nome, email) VALUES (?,?)', (request.form['nome'], request.form['email']))
         db.commit()
-    
-    lista = db.execute('SELECT * FROM clientes').fetchall()
-    return render_template('clientes.html', clientes=lista)
+    dados = db.execute('SELECT * FROM clientes').fetchall()
+    return render_template('clientes.html', clientes=dados)
 
 @app.route('/produtos', methods=['GET', 'POST'])
 def produtos():
-    if 'usuario' not in session: return redirect(url_for('login'))
-    
-    db = conectar_bd()
+    if 'logado' not in session: return redirect(url_for('login'))
+    db = conectar()
     if request.method == 'POST':
-        nome = request.form.get('nome')
-        preco = request.form.get('preco')
-        db.execute('INSERT INTO produtos (nome, preco) VALUES (?, ?)', (nome, preco))
+        db.execute('INSERT INTO produtos (nome, preco) VALUES (?,?)', (request.form['nome'], request.form['preco']))
         db.commit()
-    
-    lista = db.execute('SELECT * FROM produtos').fetchall()
-    return render_template('produtos.html', produtos=lista)
+    dados = db.execute('SELECT * FROM produtos').fetchall()
+    return render_template('produtos.html', produtos=dados)
 
 @app.route('/vendas', methods=['GET', 'POST'])
 def vendas():
-    if 'usuario' not in session: return redirect(url_for('login'))
-    
-    db = conectar_bd()
+    if 'logado' not in session: return redirect(url_for('login'))
+    db = conectar()
     if request.method == 'POST':
-        cliente = request.form.get('cliente')
-        produto = request.form.get('produto')
-        total = request.form.get('total')
-        db.execute('INSERT INTO vendas (cliente, produto, total) VALUES (?, ?, ?)', 
-                   (cliente, produto, total))
+        db.execute('INSERT INTO vendas (cliente, produto, total) VALUES (?,?,?)', 
+                   (request.form['cliente'], request.form['produto'], request.form['total']))
         db.commit()
-    
-    lista = db.execute('SELECT * FROM vendas').fetchall()
-    return render_template('vendas.html', vendas=lista)
+    dados = db.execute('SELECT * FROM vendas').fetchall()
+    return render_template('vendas.html', vendas=dados)
 
 if __name__ == '__main__':
-    # Rode o app em modo debug para ver erros detalhados no navegador
     app.run(debug=True)
