@@ -1,13 +1,51 @@
-<h2>Cadastro de Clientes</h2>
-<form method="post">
-    <input type="text" name="nome" placeholder="Nome" required>
-    <input type="email" name="email" placeholder="E-mail" required>
-    <button type="submit">Cadastrar</button>
-</form>
-<table border="1" style="margin-top: 20px; width: 100%;">
-    <tr><th>ID</th><th>Nome</th><th>E-mail</th></tr>
-    {% for c in clientes %}
-    <tr><td>{{ c.id }}</td><td>{{ c.nome }}</td><td>{{ c.email }}</td></tr>
-    {% endfor %}
-</table>
-<br><a href="/">Voltar ao Menu</a>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Clientes - SisVenda</title>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">SisVenda</a>
+            <div class="navbar-nav me-auto">
+                <a class="nav-link active" href="/clientes">Clientes</a>
+                <a class="nav-link" href="/produtos">Produtos</a>
+                <a class="nav-link" href="/vendas">Vendas</a>
+            </div>
+            <a href="/logout" class="btn btn-outline-danger btn-sm">Sair</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow p-3 mb-4">
+                    <h5>Novo Cliente</h5>
+                    <form method="POST">
+                        <input type="text" name="nome" class="form-control mb-2" placeholder="Nome completo" required>
+                        <input type="email" name="email" class="form-control mb-2" placeholder="email@exemplo.com" required>
+                        <button type="submit" class="btn btn-success w-100">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card shadow p-3">
+                    <h5>Lista de Clientes</h5>
+                    <table class="table table-hover mt-3">
+                        <thead class="table-dark">
+                            <tr><th>ID</th><th>Nome</th><th>E-mail</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for c in clientes %}
+                            <tr><td>{{c.id}}</td><td>{{c.nome}}</td><td>{{c.email}}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
