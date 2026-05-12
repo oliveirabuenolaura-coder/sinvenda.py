@@ -1,1 +1,12 @@
-
+<h2>Cadastro de Produtos</h2>
+<form method="post">
+    <input type="text" name="nome" placeholder="Nome do Produto" required>
+    <input type="number" step="0.01" name="preco" placeholder="Preço" required>
+    <button type="submit">Salvar</button>
+</form>
+<table border="1">
+    {% for p in produtos %}
+    <tr><td>{{ p.id }}</td><td>{{ p.nome }}</td><td>R$ {{ p.preco }}</td></tr>
+    {% endfor %}
+</table>
+<a href="/">Voltar</a>
