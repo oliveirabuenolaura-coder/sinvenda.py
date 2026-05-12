@@ -2,19 +2,23 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'chave_secreta_facil'
+app.secret_key = 'projeto_vendas_123'
 
-# Função para conectar ao banco
+# Função para conectar ao banco de dados SQLite
 def conectar_bd():
     conn = sqlite3.connect('banco.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# Criar tabelas iniciais
-with conectar_bd() as db:
-    db.execute('CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY, nome TEXT, email TEXT)')
-    db.execute('CREATE TABLE IF NOT EXISTS produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL)')
-    db.execute('CREATE TABLE IF NOT EXISTS vendas (id INTEGER PRIMARY KEY, cliente TEXT, produto TEXT, total REAL)')
+# Criação das tabelas ao iniciar o sistema
+def iniciar_banco():
+    with conectar_bd() as db:
+        db.execute('CREATE TABLE IF NOT EXISTS clientes (id INTEGER PRIMARY KEY, nome TEXT, email TEXT)')
+        db.execute('CREATE TABLE IF NOT EXISTS produtos (id INTEGER PRIMARY KEY, nome TEXT, preco REAL)')
+        db.execute('CREATE TABLE IF NOT EXISTS vendas (id INTEGER PRIMARY KEY, cliente TEXT, produto TEXT, total REAL)')
+        db.commit()
+
+iniciar_banco()
 
 @app.route('/')
 def index():
@@ -25,6 +29,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # Login simplificado: usuario 'admin' e senha '123'
         if request.form['usuario'] == 'admin' and request.form['senha'] == '123':
             session['usuario'] = 'admin'
             return redirect(url_for('index'))
@@ -59,6 +64,11 @@ def vendas():
         db.commit()
     lista = db.execute('SELECT * FROM vendas').fetchall()
     return render_template('vendas.html', vendas=lista)
+
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
