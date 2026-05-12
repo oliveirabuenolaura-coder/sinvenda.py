@@ -1,14 +1,90 @@
 <!DOCTYPE html>
-<html>
-<head><title>Menu</title></head>
-<body style="font-family: Arial; padding: 20px;">
-    <h1>Sistema de Vendas</h1>
-    <hr>
-    <nav>
-        <a href="/clientes">Gerenciar Clientes</a> | 
-        <a href="/produtos">Gerenciar Produtos</a> | 
-        <a href="/vendas">Registrar Vendas</a> | 
-        <a href="/logout">Sair</a>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>SisVenda - Painel</title>
+    <style>
+        .menu-card {
+            transition: transform 0.3s, shadow 0.3s;
+            border: none;
+            border-radius: 15px;
+        }
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+        }
+        .icon-box {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        body { background-color: #f4f7f6; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-5">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-cart-shopping me-2"></i>SisVenda Pro</a>
+            <div class="ms-auto">
+                <span class="navbar-text text-white me-3">Olá, <strong>Admin</strong></span>
+                <a href="/logout" class="btn btn-outline-light btn-sm">Sair</a>
+            </div>
+        </div>
     </nav>
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 mb-4">
+                <h2 class="fw-light">O que você deseja fazer hoje?</h2>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="/clientes" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm menu-card p-4">
+                        <div class="icon-box text-info">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <h4 class="text-dark">Clientes</h4>
+                        <p class="text-muted small">Gerenciar cadastros, contatos e histórico.</p>
+                        <span class="btn btn-sm btn-outline-info">Acessar</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="/produtos" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm menu-card p-4">
+                        <div class="icon-box text-warning">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h4 class="text-dark">Produtos</h4>
+                        <p class="text-muted small">Controle de estoque, preços e nomes.</p>
+                        <span class="btn btn-sm btn-outline-warning">Acessar</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="/vendas" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm menu-card p-4">
+                        <div class="icon-box text-success">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </div>
+                        <h4 class="text-dark">PDV / Vendas</h4>
+                        <p class="text-muted small">Registrar novas vendas e faturamento.</p>
+                        <span class="btn btn-sm btn-outline-success">Acessar</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <footer class="mt-5 text-center text-muted border-top pt-3">
+            <p>&copy; 2024 SisVenda - Sistema de Gestão Interna</p>
+        </footer>
+    </div>
+
 </body>
 </html>
