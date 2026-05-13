@@ -3,88 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SisVenda | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>SisVenda - Painel</title>
     <style>
-        .menu-card {
-            transition: transform 0.3s, shadow 0.3s;
-            border: none;
-            border-radius: 15px;
-        }
-        .menu-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
-        }
-        .icon-box {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        body { background-color: #f4f7f6; }
+        body { background-color: #f8f9fa; }
+        .sidebar { min-height: 100vh; background: #212529; color: white; transition: 0.3s; }
+        .sidebar a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 15px 20px; display: block; }
+        .sidebar a:hover { background: #343a40; color: white; border-left: 4px solid #0d6efd; }
+        .card-dash { border: none; border-radius: 10px; transition: 0.3s; }
+        .card-dash:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-5">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-cart-shopping me-2"></i>SisVenda Pro</a>
-            <div class="ms-auto">
-                <span class="navbar-text text-white me-3">Olá, <strong>Admin</strong></span>
-                <a href="/logout" class="btn btn-outline-light btn-sm">Sair</a>
+    <div class="d-flex">
+        <div class="sidebar col-md-2 d-none d-md-block shadow">
+            <div class="p-3 text-center">
+                <h4 class="fw-bold text-primary">SisVenda</h4>
+                <hr>
             </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-12 mb-4">
-                <h2 class="fw-light">O que você deseja fazer hoje?</h2>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <a href="/clientes" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm menu-card p-4">
-                        <div class="icon-box text-info">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <h4 class="text-dark">Clientes</h4>
-                        <p class="text-muted small">Gerenciar cadastros, contatos e histórico.</p>
-                        <span class="btn btn-sm btn-outline-info">Acessar</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <a href="/produtos" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm menu-card p-4">
-                        <div class="icon-box text-warning">
-                            <i class="fa-solid fa-box-open"></i>
-                        </div>
-                        <h4 class="text-dark">Produtos</h4>
-                        <p class="text-muted small">Controle de estoque, preços e nomes.</p>
-                        <span class="btn btn-sm btn-outline-warning">Acessar</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <a href="/vendas" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm menu-card p-4">
-                        <div class="icon-box text-success">
-                            <i class="fa-solid fa-money-bill-trend-up"></i>
-                        </div>
-                        <h4 class="text-dark">PDV / Vendas</h4>
-                        <p class="text-muted small">Registrar novas vendas e faturamento.</p>
-                        <span class="btn btn-sm btn-outline-success">Acessar</span>
-                    </div>
-                </a>
+            <a href="/"><i class="fas fa-home me-2"></i> Início</a>
+            <a href="/clientes"><i class="fas fa-users me-2"></i> Clientes</a>
+            <a href="/produtos"><i class="fas fa-box me-2"></i> Produtos</a>
+            <a href="/vendas"><i class="fas fa-shopping-cart me-2"></i> Vendas</a>
+            <div class="mt-5">
+                <a href="/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Sair</a>
             </div>
         </div>
 
-        <footer class="mt-5 text-center text-muted border-top pt-3">
-            <p>&copy; 2024 SisVenda - Sistema de Gestão Interna</p>
-        </footer>
+        <div class="flex-grow-1 p-4">
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold">Painel de Controle</h2>
+                <span class="badge bg-primary p-2">Usuário: Admin</span>
+            </header>
+
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card card-dash shadow-sm p-4 text-center border-start border-info border-5">
+                        <i class="fas fa-user-plus fa-2x text-info mb-2"></i>
+                        <h5>Novo Cliente</h5>
+                        <a href="/clientes" class="btn btn-sm btn-info text-white">Acessar</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-dash shadow-sm p-4 text-center border-start border-warning border-5">
+                        <i class="fas fa-plus-circle fa-2x text-warning mb-2"></i>
+                        <h5>Novo Produto</h5>
+                        <a href="/produtos" class="btn btn-sm btn-warning text-white">Acessar</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card card-dash shadow-sm p-4 text-center border-start border-success border-5">
+                        <i class="fas fa-cash-register fa-2x text-success mb-2"></i>
+                        <h5>Nova Venda</h5>
+                        <a href="/vendas" class="btn btn-sm btn-success">Acessar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>
