@@ -1,13 +1,77 @@
-<h2>Produtos</h2>
-<form method="POST">
-    <input name="nome" placeholder="Nome Produto" required>
-    <input name="preco" placeholder="Preço" required>
-    <button type="submit">Salvar</button>
-</form>
-<table border="1">
-    <tr><th>Nome</th><th>Preço</th></tr>
-    {% for p in produtos %}
-    <tr><td>{{p.nome}}</td><td>R$ {{p.preco}}</td></tr>
-    {% endfor %}
-</table>
-<br><a href="/">Voltar</a>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SisVenda | Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { min-height: 100vh; background: #212529; color: white; }
+        .sidebar a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 15px 20px; display: block; }
+        .sidebar a:hover { background: #343a40; color: white; border-left: 4px solid #ffc107; }
+        .card { border: none; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <div class="sidebar col-md-2 d-none d-md-block shadow">
+            <div class="p-3 text-center"><h4 class="fw-bold text-warning">SisVenda</h4><hr></div>
+            <a href="/"><i class="fas fa-home me-2"></i> Início</a>
+            <a href="/clientes"><i class="fas fa-users me-2"></i> Clientes</a>
+            <a href="/produtos" class="bg-warning text-dark fw-bold"><i class="fas fa-box me-2"></i> Produtos</a>
+            <a href="/vendas"><i class="fas fa-shopping-cart me-2"></i> Vendas</a>
+            <div class="mt-5"><a href="/logout" class="text-danger"><i class="fas fa-sign-out-alt me-2"></i> Sair</a></div>
+        </div>
+
+        <div class="flex-grow-1 p-4">
+            <h2 class="fw-bold mb-4"><i class="fas fa-box-open text-warning me-2"></i>Gerenciar Estoque</h2>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow-sm p-4">
+                        <h5 class="mb-3">Novo Produto</h5>
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Nome do Produto</label>
+                                <input type="text" name="nome" class="form-control" placeholder="Ex: Teclado Mecânico" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Preço de Venda (R$)</label>
+                                <input type="number" step="0.01" name="preco" class="form-control" placeholder="0,00" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100 fw-bold">Salvar Produto</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card shadow-sm p-4">
+                        <h5 class="mb-3">Produtos Cadastrados</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr><th>ID</th><th>Produto</th><th>Preço</th><th class="text-center">Ações</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in produtos %}
+                                    <tr>
+                                        <td>#{{ p.id }}</td>
+                                        <td class="fw-bold text-secondary">{{ p.nome }}</td>
+                                        <td><span class="badge bg-success">R$ {{ p.preco }}</span></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
