@@ -2,48 +2,32 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Clientes - SisVenda</title>
+    <title>SisVenda Pro - Clientes</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="/">SisVenda</a>
-            <div class="navbar-nav me-auto">
-                <a class="nav-link active" href="/clientes">Clientes</a>
-                <a class="nav-link" href="/produtos">Produtos</a>
-                <a class="nav-link" href="/vendas">Vendas</a>
-            </div>
-            <a href="/logout" class="btn btn-outline-danger btn-sm">Sair</a>
+<body class="bg-[#E3F2FD] font-sans">
+    <div class="bg-[#64B5F6] text-white p-4 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold"><a href="/">🛒 SISVENDA PRO</a></h1>
+        <div class="space-x-4"><a href="/clientes" class="underline font-bold">Clientes</a> <a href="/produtos" class="hover:underline">Produtos</a> <a href="/vendas" class="hover:underline">Vendas</a> <a href="/logout" class="bg-red-500 px-3 py-1 rounded-lg hover:bg-red-600">Sair</a></div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-8 px-4 flex flex-col md:flex-row gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-md border border-blue-100 w-full md:w-1/3 h-fit">
+            <h2 class="text-lg font-bold text-gray-700 mb-4">👥 CADASTRO DE CLIENTE</h2>
+            <form method="POST">
+                <div class="mb-4"><input type="text" name="nome" placeholder="Nome Completo:" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none" required></div>
+                <div class="mb-4"><input type="email" name="email" placeholder="E-mail:" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none" required></div>
+                <button type="submit" class="w-full bg-[#E91E63] text-white p-3 rounded-xl font-bold hover:bg-pink-600 transition">👤 Salvar Cliente</button>
+            </form>
         </div>
-    </nav>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card shadow p-3 mb-4">
-                    <h5>Novo Cliente</h5>
-                    <form method="POST">
-                        <input type="text" name="nome" class="form-control mb-2" placeholder="Nome completo" required>
-                        <input type="email" name="email" class="form-control mb-2" placeholder="email@exemplo.com" required>
-                        <button type="submit" class="btn btn-success w-100">Cadastrar</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card shadow p-3">
-                    <h5>Lista de Clientes</h5>
-                    <table class="table table-hover mt-3">
-                        <thead class="table-dark">
-                            <tr><th>ID</th><th>Nome</th><th>E-mail</th></tr>
-                        </thead>
-                        <tbody>
-                            {% for c in clientes %}
-                            <tr><td>{{c.id}}</td><td>{{c.nome}}</td><td>{{c.email}}</td></tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md border border-blue-100 flex-1">
+            <h2 class="text-lg font-bold text-gray-700 mb-4">CLIENTES CADASTRADOS</h2>
+            <div class="overflow-x-auto rounded-xl border border-blue-100">
+                <table class="w-full text-left border-collapse">
+                    <thead><tr class="bg-[#90CAF9] text-gray-700 font-bold"><th class="p-3 text-center w-16">ID</th><th class="p-3">Nome</th><th class="p-3">E-mail</th></tr></thead>
+                    <tbody class="divide-y divide-blue-50">
+                        {% for cliente in clientes %}<tr class="hover:bg-blue-50/50"><td class="p-3 text-center font-bold text-gray-500">{{ cliente.id }}</td><td class="p-3 text-gray-700">{{ cliente.nome }}</td><td class="p-3 text-gray-600">{{ cliente.email }}</td></tr>{% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
