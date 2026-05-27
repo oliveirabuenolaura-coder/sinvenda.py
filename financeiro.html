@@ -1,1 +1,24 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>SisVenda Pro - Financeiro</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#E3F2FD] font-sans">
+    <div class="bg-[#64B5F6] text-white p-4 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold"><a href="/">🛒 SISVENDA PRO</a></h1>
+        <div class="space-x-4"><a href="/clientes" class="hover:underline">Clientes</a> <a href="/produtos" class="hover:underline">Produtos</a> <a href="/vendas" class="hover:underline">Vendas</a> <a href="/logout" class="bg-red-500 px-3 py-1 rounded-lg hover:bg-red-600">Sair</a></div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-8 px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-green-500 flex justify-between items-center">
+                <div><p class="text-sm text-gray-400 font-bold uppercase">Faturamento Total</p><h3 class="text-2xl font-black text-gray-700">R$ {{ "%.2f"|format(faturamento_total) }}</h3></div><span class="text-3xl">💰</span>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-blue-500 flex justify-between items-center">
+                <div><p class="text-sm text-gray-400 font-bold uppercase">Total de Transações</p><h3 class="text-2xl font-black text-gray-700">{{ total_vendas }}</h3></div><span class="text-3xl">📈</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
