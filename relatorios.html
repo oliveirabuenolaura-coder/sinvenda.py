@@ -1,1 +1,28 @@
-
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>SisVenda Pro - Relatórios</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#E3F2FD] font-sans">
+    <div class="bg-[#64B5F6] text-white p-4 flex justify-between items-center shadow-md">
+        <h1 class="text-xl font-bold"><a href="/">🛒 SISVENDA PRO</a></h1>
+        <div class="space-x-4"><a href="/clientes" class="hover:underline">Clientes</a> <a href="/produtos" class="hover:underline">Produtos</a> <a href="/vendas" class="hover:underline">Vendas</a> <a href="/logout" class="bg-red-500 px-3 py-1 rounded-lg hover:bg-red-600">Sair</a></div>
+    </div>
+    <div class="max-w-4xl mx-auto mt-8 px-4">
+        <div class="bg-white p-8 rounded-2xl shadow-md border border-blue-100">
+            <div class="border-b border-blue-100 pb-4 mb-6 flex justify-between items-center">
+                <h2 class="text-2xl font-black text-gray-700">📋 RELATÓRIO GERAL</h2>
+                <button onclick="window.print()" class="bg-[#64B5F6] text-white font-bold px-4 py-2 rounded-xl hover:bg-blue-600">🖨️ Imprimir</button>
+            </div>
+            <div class="space-y-4">
+                <div class="flex justify-between p-4 bg-[#E3F2FD]/50 rounded-xl"><span class="text-gray-600 font-semibold">Total de Clientes:</span><span class="font-bold text-gray-800">{{ total_clientes }}</span></div>
+                <div class="flex justify-between p-4 bg-[#E3F2FD]/50 rounded-xl"><span class="text-gray-600 font-semibold">Total de Produtos:</span><span class="font-bold text-gray-800">{{ total_produtos }}</span></div>
+                <div class="flex justify-between p-4 bg-[#E3F2FD]/50 rounded-xl"><span class="text-gray-600 font-semibold">Total de Vendas:</span><span class="font-bold text-gray-800">{{ total_vendas }}</span></div>
+                <div class="flex justify-between p-4 bg-green-50 rounded-xl border border-green-100"><span class="text-green-700 font-bold">Faturamento Acumulado:</span><span class="font-black text-green-600 text-lg">R$ {{ "%.2f"|format(faturamento_total) }}</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
