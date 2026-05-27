@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <title>SisVenda Pro - Login</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        body { background-color: #E3F2FD !important; }
+    </style>
 </head>
 <body class="bg-[#E3F2FD] flex items-center justify-center h-screen font-sans">
     <div class="bg-white p-8 rounded-2xl shadow-md w-96 border border-blue-100">
         <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">🛒 SISVENDA PRO</h2>
         <form method="POST">
-            <div class="mb-4"><input type="text" name="usuario" placeholder="Usuário (admin)" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none" required></div>
-            <div class="mb-6"><input type="password" name="senha" placeholder="Senha (123)" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none" required></div>
+            <div class="mb-4">
+                <input type="text" name="usuario" placeholder="Usuário (admin)" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none focus:border-blue-400" required>
+            </div>
+            <div class="mb-6">
+                <input type="password" name="senha" placeholder="Senha (123)" class="w-full p-3 bg-[#E3F2FD] border border-blue-200 rounded-xl focus:outline-none focus:border-blue-400" required>
+            </div>
             <button type="submit" class="w-full bg-[#1E88E5] text-white p-3 rounded-xl font-bold hover:bg-blue-700 transition">Entrar no Sistema</button>
         </form>
     </div>
